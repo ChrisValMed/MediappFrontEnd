@@ -1,0 +1,47 @@
+<div>
+
+  <form [formGroup]="stateForm" #frmPaciente="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Paciente" 
+      required [matAutocomplete]="autoGroup"
+      formControlName="pacInter">
+      
+      <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-optgroup *ngFor="let group of stateGroupOptions | async"  
+        [label]="group.valueP" >
+          <mat-option *ngFor="let name of group.viewValueP" [value]="name">
+            {{name}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+    <div [hidden]="true">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="ID" formControlName="id">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Escoge una fecha" [max]="maxFecha" 
+      required formControlName="fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Temperatura" required formControlName="temperatura">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Pulso" required formControlName="pulso">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ritmo Respiratorio" required formControlName="ritmo" >
+    </mat-form-field>
+
+  </form>
+
+</div>
+<button mat-raised-button color="primary" [disabled]="frmPaciente.invalid" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
